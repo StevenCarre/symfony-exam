@@ -14,7 +14,7 @@ this is a technical test for symfony
   
 ## enter in docker:
 
-`docker-compose exec app_exam bash`
+`docker-compose exec --user www-data app_exam bash`
 
 ## Install project:
 
