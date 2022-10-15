@@ -1,5 +1,5 @@
 install:
 	composer install
-	php bin/console doc:data:create
+	php bin/console doc:data:create --if-not-exists
 	php bin/console doc:mig:mig
-	php bin/console doc:fix:load 
+	php bin/console hau:fix:load
