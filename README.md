@@ -9,7 +9,7 @@ this is a technical test for symfony
 # Installation
 
 ## build and up docker: 
-- build: `docker-composer compose build`
+- build: `docker-compose build`
 - up: `docker-compose up -d`
   
 ## enter in docker:
