@@ -26,7 +26,7 @@ class Book
     private ?string $resume = null;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Author $author = null;
 
     public function getId(): ?int
