@@ -47,12 +47,13 @@ class AuthorController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
     /**
      * lists authors searching by name or first name
-     * @param ?string $searchTerm
+     * @param Request $request
      * @return JsonResponse
      */
-    #[Route('/author/list/{searchTerm}', name: 'list-authors', methods: ['GET'])]
-    public function listAuthors(?string $searchTerm = null): JsonResponse
+    #[Route('/author/list', name: 'list-authors', methods: ['GET'])]
+    public function listAuthors(Request $request): JsonResponse
     {
+        $searchTerm = $request->query->get('searchTerm');
         $authors = $this->authorRepository->findBySearchTerm($searchTerm);
         $context = (new ObjectNormalizerContextBuilder())
             ->withGroups(['Author', 'Author_detail', 'Book'])
