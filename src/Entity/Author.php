@@ -6,6 +6,8 @@ use App\Repository\AuthorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 class Author
@@ -16,12 +18,16 @@ class Author
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups('Author')]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups('Author')]
     private ?string $firstName = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class, cascade: ['persist'], orphanRemoval: true)]
+    #[MaxDepth(2)]
+    #[Groups('Author_detail')]
     private Collection $books;
 
     public function __construct()

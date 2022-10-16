@@ -6,6 +6,7 @@ use App\Repository\BookRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Overblog\GraphQLBundle\Annotation as GQL;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 #[GQL\Type(name: "Book")]
@@ -19,14 +20,17 @@ class Book
 
     #[ORM\Column(length: 255)]
     #[GQL\Field]
+    #[Groups('Book')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[GQL\Field]
+    #[Groups('Book_resume')]
     private ?string $resume = null;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: true)]
+    #[Groups('Book_detail')]
     private ?Author $author = null;
 
     public function getId(): ?int

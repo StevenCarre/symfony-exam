@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Author;
 use App\Entity\Book;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,5 +38,16 @@ class BookRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function countBooks(Author $author): int
+    {
+        return $this->createQueryBuilder('b')
+            ->select('COUNT(b)')
+            ->andWhere('b.author = :author')
+            ->setParameter('author', $author)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
     }
 }
