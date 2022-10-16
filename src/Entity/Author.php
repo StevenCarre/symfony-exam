@@ -8,26 +8,32 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Overblog\GraphQLBundle\Annotation as GQL;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
+#[GQL\Type(name: "Author")]
 class Author
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[GQL\Field(type: "ID")]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
     #[Groups('Author')]
+    #[GQL\Field]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 50)]
     #[Groups('Author')]
+    #[GQL\Field]
     private ?string $firstName = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class, cascade: ['persist'], orphanRemoval: true)]
     #[MaxDepth(2)]
     #[Groups('Author_detail')]
+    #[GQL\Field(type: "[Book]")]
     private Collection $books;
 
     public function __construct()

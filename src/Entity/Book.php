@@ -30,6 +30,7 @@ class Book
 
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: true)]
+    #[GQL\Field]
     #[Groups('Book_detail')]
     private ?Author $author = null;
 
