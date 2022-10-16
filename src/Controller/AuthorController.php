@@ -68,4 +68,27 @@ class AuthorController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
         return $this->json($result, 200, ['content' => 'application/json'], $context);
     }
+
+    /**
+     * creates an author
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[Route('/author/create', name: 'create-author', methods: ['POST'], format: 'json')]
+    public function createAuthor(Request $request): JsonResponse
+    {
+         if ($request->headers->get('content-type') != 'application/json') {
+             throw new BadRequestException('Content type header must be application/json');
+         }
+        $context = (new ObjectNormalizerContextBuilder())
+            ->withGroups(['Author', 'Author_detail', 'Book'])
+            ->toArray();
+
+        $json = $request->getContent();
+        $author = $this->serializer->deserialize($json, Author::class, 'json');
+
+        $this->authorRepository->save($author, true);
+
+        return $this->json($author, 200, ['content' => 'application/JSON'], $context);
+    }
 }
