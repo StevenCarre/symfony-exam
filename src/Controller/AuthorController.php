@@ -67,7 +67,7 @@ class AuthorController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
             ];
         }
 
-        return $this->json($result, 200, ['content' => 'application/json'], $context);
+        return $this->json($result, 200, ['Content-Type' => 'application/json'], $context);
     }
 
     /**
@@ -90,6 +90,6 @@ class AuthorController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstra
 
         $this->authorRepository->save($author, true);
 
-        return $this->json($author, 200, ['content' => 'application/JSON'], $context);
+        return $this->json($author, 200, ['Content-Type' => 'application/json'], $context);
     }
 }

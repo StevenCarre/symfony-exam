@@ -36,7 +36,7 @@ class BookController extends AbstractController
             ->withGroups(['Book'])
             ->toArray();
 
-        return $this->json($books, 200, ['content' => 'application/json'], $context);
+        return $this->json($books, 200, ['Content-Type' => 'application/json'], $context);
     }
 
     /**
@@ -62,7 +62,7 @@ class BookController extends AbstractController
             'books' => $books
             ],
             200,
-            ['content' => 'application/json'],
+            ['Content-Type' => 'application/json'],
             $context);
     }
 
